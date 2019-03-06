@@ -1,0 +1,561 @@
+Muhammad Taha Ahsan, mta6, H00313353
+#F28PL Coursework PY1
+
+
+################################################################################
+#Question 1
+
+
+
+#####################################
+#Question 1a
+
+# Takes two tuples, splits the values up by assigning the first and second values, and then respectively adds the values
+def cadd(tups1, tups2):
+    first1, second1 = tups1
+    first2, second2 = tups2
+    return ((first1 + first2), (second1 + second2))
+
+print(cadd((2,3), (4,5)))
+
+
+# Takes two tuples, splits the values up by assigning the first and second values, and then uses the formula to
+# multiply them
+def cmult(tups1, tups2):
+    first1, second1 = tups1
+    first2, second2 = tups2
+    return ((first1*first2 - second2*second1), (first1*second2 + second1*first2))
+
+print(cmult((4,5),(2,3)))
+
+
+
+#####################################
+#Question 1b
+
+# Takes in two integers and returns a a complex number
+def toComplex(x, y):
+    return x + y*1j
+
+print(toComplex(7,8))
+
+
+# Takes a complex number and returns a tuple by extracting the real and imaginary parts of the complex number
+def fromComplex(x):
+    return (int(x.real),int(x.imag))
+
+print(fromComplex(4+5j))
+
+#END ANSWER TO Question 1
+################################################################################
+
+
+
+################################################################################
+#Question 2
+
+
+
+#####################################
+#Question 2a
+
+testList1 = [1, 2, 3]
+testList2 = [4, 5, 6]
+
+
+# Takes two lists and iterates through them using zip to take the heads of both lists, and adds them together and
+# appends them to the empty list
+def seqaddi(list1, list2):
+    numList = []
+    for x, y in zip(list1, list2):
+        numList.append(x + y)
+    return numList
+
+print(seqaddi(testList1, testList2))
+
+
+# Takes two lists and iterates through them using zip to take the heads of both lists, and then multiplies them
+# together and appends them to the empty list
+def seqmulti(list1, list2):
+    numList = []
+    for x, y in zip(list1, list2):
+        numList.append(x * y)
+    return numList
+
+print(seqmulti(testList1, testList2))
+
+
+
+#####################################
+#Question 2b
+
+testList1 = [1, 2, 3]
+testList2 = [4, 5, 6]
+
+# Takes two lists and first checks if list1 is empty, if it is, return an empty list. Otherwise, the the lists are split
+# up as the head and the rest of the list. The heads are added and put into a list, this keeps happening until the base
+# case is met, once the empty list is returned, the previous lists are appended to the empty list
+def seqaddr(list1, list2):
+    if not list1:
+        return []
+    else:
+        head1, *tail1 = list1
+        head2, *tail2 = list2
+        return [head1 + head2] + seqaddr(tail1, tail2)
+
+print(seqaddr(testList1, testList2))
+
+
+# Takes two lists and first checks if list1 is empty, if it is, return an empty list. Otherwise, the the lists are split
+# up as the head and the rest of the list. The heads are multiplies and put into a list, this keeps happening until the
+# base case is met, once the empty list is returned, the previous lists are appended to the empty list
+def seqmultr(list1, list2):
+    if not list1:
+        return []
+    else:
+        head1, *tail1 = list1
+        head2, *tail2 = list2
+        return [head1 * head2] + seqmultr(tail1, tail2)
+
+print(seqmultr(testList1, testList2))
+
+
+
+#####################################
+#Question 2c
+
+testList1 = [1, 2, 3]
+testList2 = [4, 5, 6]
+
+# Takes two lists and follows a similar approach as seqaddi, but this uses list comprehension, which does the
+# calculating and appending directly in the list itself
+def seqaddc(list1, list2):
+    return [head1 + head2 for head1, head2 in zip(list1, list2)]
+
+print(seqaddc(testList1, testList2))
+
+
+# Takes two lists and follows a similar approach as seqmulti, but this uses list comprehension, which does the
+# calculating and appending directly in the list itself
+def seqmultc(list1, list2):
+    return [head1 * head2 for head1, head2 in zip(list1, list2)]
+
+print(seqmultr(testList1, testList2))
+
+#END ANSWER TO Question 2
+################################################################################
+
+
+
+################################################################################
+#Question 3
+
+list1 = [1, 2, 3]
+list2 = [4, 5, 6]
+list3 = [7, 8, 9]
+list4 = [10, 11, 12]
+myMatrix = [list1, list2, list3, list4]
+myMatrix2 = [[1, 2, 3, 4], [4, 5, 6, 7], [7, 8, 9, 10]]
+myNotMatrix = [list1, list2, [1]]
+
+
+
+# Takes in a matrix and checks if the length of any list in the matrix has the same size as the element in front, if the
+# statement is true, then the loop continues to run, for any instance where the statement is false, the loop stops and
+# returns false, if the entire loop has finished, the method returns true
+def isMatrix(matrix):
+    for i in range(len(matrix) - 1):
+        if (len(matrix[i]) == len(matrix[i + 1])):
+            continue
+        else:
+            return False
+    return True
+
+
+print(isMatrix(myMatrix))
+print(isMatrix(myNotMatrix))
+
+
+# Takes in a matrix and returns a tuple with the length of the first list in the matrix (rows), and then the length of
+# the matrix (columns)
+def shapeMatrix(matrix):
+    return (len(matrix[1]), len(matrix))
+
+
+print(shapeMatrix(myMatrix))
+
+
+# Takes in two lists and returns the sum of two lists as a list
+def addMatrixHelp(list1, list2):
+    helpAddlist = []
+    for i in range(len(list1)):
+        helpAddlist.append(list1[i] + list2[i])
+    return helpAddlist
+
+
+# Takes in two matrices, uses a loop to take each list in the matrices, passes those list into addMatrixHelp, the return
+# of that method is appended to finalMatrix, and finalMatrix is returned once the two matrices have been added
+def addMatrix(matrix, matrix2):
+    finalMatrix = []
+    for i in range(len(matrix)):
+        addlist1 = matrix[i]
+        addlist2 = matrix2[i]
+        finalMatrix.append(addMatrixHelp(addlist1, addlist2))
+    return finalMatrix
+
+print(addMatrix(myMatrix, myMatrix))
+
+
+# Takes in two lists and returns the product of two lists as a list
+def multMatrixHelp(multLis1, multList2):
+    helpMultList = []
+    for i in range(len(multLis1)):
+        helpMultList.append(multLis1[i] * multList2[i])
+    return sum(helpMultList)
+
+
+# Takes in a matrix and transposes it by appending all of the same index of all the lists in the matrix to a new list
+# and then appending those lists to another empty list to create a matrix
+def transMatrix(matrix):
+    newMatrix = []
+    for index in range(len(matrix[1])):
+        newList = []
+        for x in matrix:
+            newList.append(x[index])
+        newMatrix.append(newList)
+    return newMatrix
+
+
+# Takes two matrices and takes the head of each matrix, and then takes the first element of each list, and multiplies
+# them, and adds them to sum, once it's done iterating through the lists, it adds the sum to another list, and once
+# that second matrix is done, the first matrix is iterated and everything repeated
+def multMatrix(matrix1, matrix2):
+    finalMatrix = []
+    matrix2 = transMatrix(matrix2)
+    print(matrix2)
+    for x in range(len(matrix1)):
+        multlist1 = matrix1[x]
+        finalList = []
+        for y in range(len(matrix2)):
+            multlist2 = matrix2[y]
+            sum = 0
+            for z in range(len(multlist1)):
+                sum = sum + (multlist1[z] * multlist2[z])
+            finalList.append(sum)
+        finalMatrix.append(finalList)
+    return finalMatrix
+
+print(multMatrix(myMatrix,myMatrix2))
+
+#END ANSWER TO Question 3
+################################################################################
+
+
+
+###############################################################################
+#Question 4
+
+PYTHON DATA REPRESENTATION
+
+
+
+
+INTEGER VS FLOAT TYPES
+In python, integers and floats are both data types that are used when working with numbers,
+integers types can only hold integer numbers, and floats can hold numbers with decimal points.
+Integers data types are represented by 32 bits, meaning that they have a limited 
+amount of precision, whereas float data types have an infinite amount of precision, the 
+amount of precision is entirely dependant on the machine in questions. While integers can 
+be simply represented by using numbers, but creating a float type requires the float() constructor. 
+When it comes to using either data type for calculations, integers can use any arithmetic
+operation, but when it comes to dividing, it loses it's accuracy as it can't represent decimal
+numbers, this if where float comes into play, let's take a look.
+
+	>>>type(10)
+	<class 'int'>
+
+	>>>type(10.0)
+	<class 'float'>
+
+	>>> 3 * 4
+	12
+
+	>>> 10/4
+	2.5
+	
+When we divided two integer types who's answer had a decimal point, python automatically 
+converted the result into a float type, we can see this by the following code.
+	
+	>>>type(10/4)
+	<class 'float'>
+
+This is because the answer can't be represented as an integer.
+
+
+
+
+ASSIGNMENT VS QUALITY VS IDENTITY
+Assignment in python is used to assign values to variables, it's done using the '=' operator,
+with the variable name on the left, and the value that's to be assigned to the variable 
+on the right. For example:
+
+	>>>myInt = 4
+
+	>>>myString = "Programming Languages"
+
+Equality in python is used to check is two value are equal, it uses '==' to denote that 
+equality is being checked. The return of an equality type is a boolean value of True or 
+False. For example:
+
+	>>>1==1
+	True
+	
+	>>>"PL"=="PL"
+	True
+
+	>>>10=100
+	False
+
+	>>>"PL"=="Boring"
+	False
+
+Identity in python is used to check where an object is pointing, often used to check if two
+variables are pointing at the same object. For example.
+
+	>>>myInt = 45
+
+	>>>mySecondInt = myInt
+
+	>>>id(myInt)
+	1635886272
+
+	>>>id(mySecondInt)
+	1635886272
+
+As you can see, both id's are the same, meaning that both the variables are pointing at the
+same object. Now that's just getting the id, I mentioned that you can compare if two
+variables are pointing at the same object. Instead of getting the id of each variable, there
+is something similar to the equalities above, it's called 'is', let's see how it works.
+
+	>>>list1 = [1,2,3]
+	
+	>>>list2 = [1,2,3]
+
+Note that instead of saying "list2 = list1", we created a new array.
+
+	>>>list1 is list2
+	False
+
+As you can see, their identities don't match, that's why when we use 'is', it's returning False
+This is because we created a new array that points to a different location. If we did
+"list2 = list1", they would point at the same object, and the 'is' would return true.
+
+	>>>list2 = list1
+
+	>>>list1 is list2
+	True
+	
+
+
+
+COMPUTATIONAL EFFECTS OF LIST(RANGE(5**5**5))
+The range() method creates a range of numbers that are returned as type 'range'. The function
+range(5**5**5) computes a range that is 5 to the power of 5 to the power of five. This results
+to 1.911E2184 (over 2000 digits), when we try to create a list of that size, we get an overflow
+error. This is because the largest list we can create on a 64-bit machine is 9223372036854775807,
+which is far smaller than the range we computed, hence why we get an overflow error.
+
+
+
+
+SLICING
+Slicing in python is used to directly extract specific elements from lists/tuples/arrays, 
+so there is no need to iterate through the list of elements. To slice a list, the syntax
+used is 'nameOfList[indexFrom:indexTo]', where indexFrom is the index you want to start
+slicing from, and indexTo is where you want to extract till. For example:
+	
+	>>>["I", "Am", "A", "Fan", "Of", "PL"][2:4]
+	["A", "Fan"]
+
+Another feature of slicing is that a list can be sliced as it's being generated rather than
+waiting for the whole list to generate first. For example:
+	
+	>>>list(range(10**10)[10:10])
+	[]
+
+This returns the same things as:
+
+	>>>list(range(10**10))[10:10]
+	[]
+
+But the first one is faster as it extracts the items from the list as soon as they're generated
+I would show the time difference between the two, but my machine couldn't compute 10**10, so I
+used 8**8.
+
+	>>>list(range(8**8))[10:10]
+	Took 0.498 seconds
+
+	>>>list(range(8**8)[10:10])
+	Took 0.0 seconds
+
+
+
+
+MUTABLE TYPES VS IMMUTABLE TYPES
+The concept of mutable and immutable is simple, mutable means that it can be changed without
+created a new object, and immutable means that when it is changed, a new object is created.
+Common mutable objects are lists, dicts, and sets. Common immutable objects are ints, strings
+floats, bools, ranges. When changing mutable types, like adding items to list, the list still
+points to the same location, for example:
+
+	>>>myList = [1,2,3]
+	>>>id(myList)
+	2106498353288
+	
+	>>>myList.append(4)
+	>>>print(myList)
+	[1, 2, 3, 4]
+
+	>>>id(myList)
+	2106498353288
+
+As you can see, myList still has the same object id, this means that the list datatype is
+mutable, now let's try changing the value of an int
+
+	>>>myInt = 5
+	>>>id(myInt)
+	1710269664
+
+	>>>myInt = 6
+	>>>id(myInt)
+	1710269696
+
+If you look at the last two digits of it ids, you'll see that myInt has different ids from when
+it was 5 compared to when it was 6. This means that int datatype is immutable
+
+#END ANSWER TO Question 4
+################################################################################
+
+
+
+###############################################################################
+#Question 5
+	
+# Takes in input and converts it to string using the str() method, and then strips the string of any parenthasis
+def encdat(x):
+    myString = str(x)
+    myString = myString.strip("(")
+    myString = myString.strip(")")
+    return myString
+
+print(encdat(4+5j))
+print(type(encdat(4+5j)))
+
+#END ANSWER TO Question 5
+################################################################################
+
+
+
+###############################################################################
+#Question 6
+	
+# Takes in an integer, if the integer is 0, it returns an empty list, otherwise, it recursively calls itself until it
+# reaches the base case, for each iteration, an empty list is returned and then put inside a list from the previous call
+def fenc(x):
+    if(x == 0):
+        return []
+    else:
+        return [fenc(x-1), [fenc(x-1)]]
+
+print(fenc(2))
+
+
+# Takes in a list and checks to see if the list is empty, if not, then the method is recursively called and the head of
+# of the list is passed in. The '1' is added to keep track of how many lists were iterated before an empty list was
+# found
+def fdec(listdenc):
+    if not listdenc:
+        return 0
+    else:
+        return 1+fdec(listdenc[0])
+
+test = fenc(2)
+print(fdec(test))
+
+#END ANSWER TO Question 6
+################################################################################
+
+
+
+###############################################################################
+#Question 7
+
+myList = ["eat", "sleep", "code"]
+
+# Uses the concept of generators to return the different strings, we use yield and generators can keep track of where
+# the loop last stopped by using yield, this allows us to create an endless cycle
+def cycleoflife():
+    while True:
+        yield myList[0]
+        yield myList[1]
+        yield myList[2]
+
+x = cycleoflife();
+
+for i in range(0, 7000):
+    print(next(x))
+
+#END ANSWER TO Question 7
+################################################################################
+
+
+
+#################################################################################
+#Question 8
+
+Did not attempt
+
+#END ANSWER TO Question 8
+################################################################################
+
+
+##########################################################
+#Question 9
+
+#not a endless generator this will only get primes upto the passed input or 40000
+def eratosthenes(z=40000):
+    #create an array of true values the size of z
+    A = [True] * z
+    #iterate over each value to z squared
+    for x in range(2, int(z**0.5)):
+        #if A[x] has a true value
+        if A[x]:
+            #iterate over a range starting from x*2 ending at z in jumps of x
+            for z in range(x * 2, z, x):
+                #set anything in the range to false
+                A[z] = False
+    #iterate over the array
+    for y in range(2, len(A)):
+        #if a value is true that index is a prime number
+        if A[y]:
+            #yield the current iterator location as it is a prime
+            yield y
+
+#creates a instance of the generator and prints out 50 primes
+pNumbers = eratosthenes()
+for printer2 in range(50):
+    print(next(pNumbers))
+
+#END ANSWER TO Question 9
+################################################################################
+
+
+
+
+
+
+
+
+
+
+
