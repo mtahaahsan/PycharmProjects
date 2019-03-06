@@ -1,26 +1,33 @@
-def cadd(tups, tups2):
-    first, last = tups
-    first2, last2 = tups2
-    return ((first + first2), (last + last2))
-
-def cmult(tups, tups2):
-    first, second = tups
+# Takes two tuples, splits the values up by assigning the first and second values, and then respectively adds the values
+def cadd(tups1, tups2):
+    first1, second1 = tups1
     first2, second2 = tups2
-    return ((first*first2 - second2*second), (first*second2 + second*first2))
+    return ((first1 + first2), (second1 + second2))
 
+print(cadd((2,3), (4,5)))
+
+
+# Takes two tuples, splits the values up by assigning the first and second values, and then uses the formula to
+# multiply them
+def cmult(tups1, tups2):
+    first1, second1 = tups1
+    first2, second2 = tups2
+    return ((first1*first2 - second2*second1), (first1*second2 + second1*first2))
+
+print(cmult((4,5),(2,3)))
+
+
+# Takes in two integers and returns a a complex number
 def toComplex(x, y):
     return x + y*1j
 
+print(toComplex(7,8))
+
+
+# Takes a complex number and returns a tuple by extracting the real and imaginary parts of the complex number
 def fromComplex(x):
-    print(x.real)
-    print(x.img)
+    return (int(x.real),int(x.imag))
+
+print(fromComplex(4+5j))
 
 
-z = cadd((1, 23), (4, 1))
-stuff = toComplex(1,3)
-print(stuff)
-# print(fromComplex(1+3j))
-
-print("ANswer : " + str(cmult((1,2),(2,24))))
-
-print(cmult((3,4), (4,3)))

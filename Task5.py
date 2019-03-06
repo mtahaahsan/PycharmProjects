@@ -1,10 +1,9 @@
+# Takes in input and converts it to string using the str() method, and then strips the string of any parenthasis
 def encdat(x):
-    return str(x)
+    myString = str(x)
+    myString = myString.strip("(")
+    myString = myString.strip(")")
+    return myString
 
-test = (5+3j)
-print(encdat(test))
-print(type(encdat(test)))
-print(type() == type('5'))
-
-
-
+print(encdat(4+5j))
+print(type(encdat(4+5j)))
